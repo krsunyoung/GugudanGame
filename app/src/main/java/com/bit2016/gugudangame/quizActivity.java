@@ -36,33 +36,42 @@ public class quizActivity extends AppCompatActivity {
 
         //문제입력
         int quiz_1 = random.nextInt(7)+2;
-        int quiz_2 = random.nextInt(7)+2;
+        int quiz_2 = random.nextInt(8)+1;
         quiz1.setText(""+quiz_1);
         quiz2.setText(""+quiz_2);
+        int answer = quiz_1 * quiz_2;
 
+        Set<Integer> set = new HashSet<Integer>();
+        set.add(answer);
         int[] button_ids={R.id.button_1,R.id.button_2,R.id.button_3,R.id.button_4,
-                R.id.button_5,R.id.button_6,R.id.button_7,R.id.button_8};
+                R.id.button_5,R.id.button_6,R.id.button_7,R.id.button_8, R.id.button_9};
         //버튼 정답클릭
-        Set<String> set = new HashSet<String>();
-        set.add(""+quiz_1*quiz_2);
-        for(int i = 0; i >7 ; i++){
-            set.add(""+random.nextInt(7)+2*random.nextInt(7)+2);
+        for(int i = 0; i < 8 ; i++){
+            answer = (random.nextInt(7)+2)*(random.nextInt(8)+1);
+            if (set.contains(answer)) {
+                i--;
+            } else {
+                set.add(answer);
+            }
         }
-        Iterator iter = set.iterator();
 
-        while(iter.hasNext()){
-            String ex = (String) iter.next();
-            for(int i =0; i<button_ids.length; i++){
-              //  TextView test= (TextView)findViewById(String.valueOf(""+button_ids[i]) );
-                // test.setText(""+ex);
+//        Iterator<Integer> iter = set.iterator();
+
+//        while(iter.hasNext()){
+            for(int i =0; i< button_ids.length; i++){
+                set.iterator().next();
+                TextView test= (TextView)findViewById(button_ids[i]);
+                test.setText(String.valueOf(set.iterator().next()));
+                set.remove(set.iterator().next());
             }
 
-        }
+//        }
 
 
 
 
-    }    private void updateLastTime(int seconds){
+    }
+    private void updateLastTime(int seconds){
         LastTime.setText(""+(TIME_LIMIT-seconds));
     }
 
